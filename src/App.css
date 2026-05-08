@@ -92,10 +92,32 @@
     flex-wrap: wrap;
 }
 
-.vi-translation {
-    font-size: 1.4rem;
+.vi-translation-block {
+    font-size: 1.3rem;
     color: var(--secondary);
     font-weight: 600;
+    margin: 0.5rem 0 1rem 0;
+    padding: 0.5rem 1rem;
+    background: rgba(129, 140, 248, 0.1);
+    border-radius: 12px;
+    border-left: 4px solid var(--secondary);
+}
+
+.fallback-box {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 1.5rem;
+    border-radius: 16px;
+    font-size: 1.2rem;
+    color: var(--text-main);
+    text-align: center;
+    border: 1px dashed var(--glass-border);
+    margin-top: 1rem;
+}
+
+.hint-text {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-top: 2rem;
 }
 
 .phonetic {

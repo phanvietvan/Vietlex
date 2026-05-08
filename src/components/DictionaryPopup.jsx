@@ -12,14 +12,17 @@ const DictionaryPopup = ({ word, onClose }) => {
     const fetchData = async () => {
       setLoading(true);
       setError(null);
+      
+      // Clean word: remove special chars at start/end, but keep internal hyphens for phrase translation
+      const cleanWord = word.trim().replace(/^[^a-zA-Z0-9]+|[^a-zA-Z0-9]+$/g, '');
+      
       try {
-        // 1. Fetch English Definition
-        const dictPromise = fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word.toLowerCase()}`);
+        // 1. Try Dictionary API (Standard English words)
+        const dictRes = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${cleanWord.toLowerCase()}`);
         
-        // 2. Fetch Vietnamese Translation
-        const transPromise = fetch(`https://api.mymemory.translated.net/get?q=${word}&langpair=en|vi`);
-
-        const [dictRes, transRes] = await Promise.all([dictPromise, transPromise]);
+        // 2. Fetch Translation (Works better for phrases/compound words)
+        // We use the original word for translation as it might be a compound like "prointerview-backend"
+        const transRes = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(word)}&langpair=en|vi`);
 
         if (dictRes.ok) {
           const dictResult = await dictRes.json();
@@ -28,11 +31,18 @@ const DictionaryPopup = ({ word, onClose }) => {
 
         if (transRes.ok) {
           const transResult = await transRes.json();
-          setTranslation(transResult.responseData.translatedText);
+          const translatedText = transResult.responseData.translatedText;
+          // Only set translation if it's actually different from the source (MyMemory returns source if not found)
+          if (translatedText.toLowerCase() !== word.toLowerCase()) {
+            setTranslation(translatedText);
+          }
         }
 
-        if (!dictRes.ok && !transRes.ok) {
-          throw new Error('Word not found');
+        if (!dictRes.ok && !translation) {
+          // If dictionary failed, try splitting if it's a compound word
+          if (cleanWord.includes('-') || cleanWord.includes('_')) {
+             setTranslation(`Cụm từ ghép: ${cleanWord.replace(/[-_]/g, ' ')}`);
+          }
         }
       } catch (err) {
         setError(err.message);
@@ -64,8 +74,8 @@ const DictionaryPopup = ({ word, onClose }) => {
             <div className="dict-header">
               <div className="word-row">
                 <h3>{word}</h3>
-                {translation && <span className="vi-translation">({translation})</span>}
               </div>
+              {translation && <div className="vi-translation-block">Nghĩa: {translation}</div>}
               {data && <span className="phonetic">{data.phonetic}</span>}
             </div>
 
@@ -81,12 +91,14 @@ const DictionaryPopup = ({ word, onClose }) => {
                   </div>
                 ))}
               </div>
-            ) : translation ? (
-              <div className="translation-only">
-                <p>Nghĩa tiếng Việt: <strong>{translation}</strong></p>
-                <p className="no-en-info">Không tìm thấy định nghĩa chi tiết bằng tiếng Anh.</p>
+            ) : (
+              <div className="no-dict-found">
+                <p className="hint-text">Từ này không có trong từ điển chuẩn, nhưng có thể hiểu là:</p>
+                <div className="fallback-box">
+                  {translation || word.replace(/[-_]/g, ' ')}
+                </div>
               </div>
-            ) : null}
+            )}
             
             <p className="dict-footer">Sources: Google Dict & MyMemory API</p>
           </div>
