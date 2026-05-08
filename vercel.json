@@ -1,5 +1,5 @@
 {
-  "installCommand": "npm install --force --no-package-lock",
+  "installCommand": "npm install --force --no-package-lock --include=dev",
   "buildCommand": "cd client && npm run build",
   "outputDirectory": "client/dist"
 }
