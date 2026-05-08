@@ -1,0 +1,325 @@
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@100..800&family=Plus+Jakarta+Sans:wght@200..800&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap');
+
+:root {
+  /* Sunset / Artistic Palette from Image */
+  --background: #120f1a; /* Tím than cực tối để làm nổi màu ấm */
+  --surface: #1a1625;
+  --surface-container-high: #2a2438;
+  --surface-container-lowest: #0d0b14;
+  
+  --primary: #FFD700;          /* Vàng Ấm */
+  --primary-container: #ccac00;
+  --secondary: #FFDAB9;        /* Cam Đào */
+  --secondary-container: #e6c4a6;
+  --tertiary: #E6E6FA;         /* Tím Nhạt */
+  --tertiary-container: #c4c4d9;
+  
+  --on-surface: #fffcf9;       /* Trắng ấm */
+  --on-surface-variant: #d6cfc7;
+  --outline: #948b8b;
+  
+  --font-display: 'Sora', sans-serif;
+  --font-body: 'Plus Jakarta Sans', sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--on-surface);
+  font-family: var(--font-body);
+  min-height: 100vh;
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+/* Ambient Background Layers - Sunset Theme (Vivid) */
+.ambient-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.bg-glow-1 { background: radial-gradient(circle at 15% 25%, rgba(255, 215, 0, 0.2) 0%, transparent 50%); position: absolute; inset: 0; }
+.bg-glow-2 { background: radial-gradient(circle at 85% 75%, rgba(255, 120, 0, 0.18) 0%, transparent 50%); position: absolute; inset: 0; }
+.bg-glow-3 { background: radial-gradient(circle at 50% 5%, rgba(230, 230, 250, 0.12) 0%, transparent 40%); position: absolute; inset: 0; }
+
+#root {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+}
+
+/* Enhanced Glassmorphism - Higher Saturation */
+.glass-card {
+  background: rgba(26, 22, 37, 0.4);
+  backdrop-filter: blur(24px) saturate(220%);
+  -webkit-backdrop-filter: blur(24px) saturate(220%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.5);
+  border-radius: 32px;
+}
+
+.luminous-border {
+  border: 1px solid rgba(255, 215, 0, 0.35); /* Vàng Ấm */
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.1), inset 0 0 8px rgba(255, 215, 0, 0.05);
+}
+
+.luminous-border-secondary {
+  border: 1px solid rgba(255, 218, 185, 0.35); /* Cam Đào */
+  box-shadow: 0 0 15px rgba(255, 218, 185, 0.1), inset 0 0 8px rgba(255, 218, 185, 0.05);
+}
+
+/* Shimmer Sweep Animation */
+@keyframes shimmer-sweep {
+  0% { transform: translateX(-100%) skewX(-20deg); }
+  100% { transform: translateX(200%) skewX(-20deg); }
+}
+
+.shimmer-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.shimmer-container::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  animation: shimmer-sweep 2.5s infinite;
+}
+
+.text-glow {
+  text-shadow: 0 0 25px rgba(255, 215, 0, 0.4);
+}
+
+.interactive-el {
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.interactive-el:hover {
+  transform: translateY(-4px) scale(1.02);
+  filter: brightness(1.2);
+}
+
+/* Layout Elements */
+.main-header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 50;
+  height: 80px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 5%;
+  background: rgba(18, 15, 26, 0.5);
+  backdrop-filter: blur(32px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.logo {
+  font-size: 2rem;
+  font-weight: 800;
+  font-family: var(--font-display);
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, #FFD700 0%, #FFDAB9 50%, #E6E6FA 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.user-stats-pill {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(34, 42, 61, 0.4);
+  backdrop-filter: blur(12px);
+  padding: 0.5rem 1.25rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  font-weight: 700;
+  color: var(--on-surface); /* Đảm bảo màu chữ luôn sáng */
+  font-size: 0.85rem;
+  white-space: nowrap;
+  transition: all 0.3s ease;
+}
+
+.user-stats-pill:hover {
+  background: rgba(173, 198, 255, 0.15);
+  border-color: var(--primary);
+  color: #fff;
+}
+
+.app-content {
+  padding-top: 140px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-bottom: 100px;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+/* Reusable Components for Setup Stage */
+.hero-title {
+  font-size: 3.5rem;
+  font-weight: 800;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.02em;
+}
+
+.ai-box-v2 {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2.5rem;
+}
+
+.ai-input-group-v2 {
+  position: relative;
+  margin: 1.5rem 0;
+}
+
+.ai-input-v2 {
+  width: 100%;
+  background: rgba(6, 14, 32, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 1.25rem 1.5rem;
+  font-size: 1.1rem;
+  color: #fff;
+  outline: none;
+  backdrop-filter: blur(8px);
+}
+
+.btn-generate-v2 {
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  bottom: 8px;
+  padding: 0 2rem;
+  background: linear-gradient(90deg, var(--primary-container), var(--secondary-container));
+  border-radius: 14px;
+  border: none;
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 5rem;
+}
+
+.feature-card {
+  padding: 2.5rem !important; /* Tạo khoảng cách an toàn với viền */
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  height: 100%;
+}
+
+.feature-card h3 {
+  color: #ffffff !important;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-top: 0.5rem;
+  text-shadow: 0 0 10px rgba(255,255,255,0.2);
+}
+
+.feature-card p {
+  color: #ffffff !important; /* Ép trắng hoàn toàn */
+  font-size: 1rem;
+  line-height: 1.6;
+  opacity: 0.8;
+}
+
+.feature-icon-box {
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.5rem;
+}
+
+.feature-icon-box .material-symbols-outlined {
+  font-size: 36px !important; /* To hơn nữa */
+}
+
+.icon-primary { background: rgba(255, 215, 0, 0.15); border: 1px solid rgba(255, 215, 0, 0.3); color: var(--primary); }
+.icon-secondary { background: rgba(255, 218, 185, 0.15); border: 1px solid rgba(255, 218, 185, 0.3); color: var(--secondary); }
+.icon-tertiary { background: rgba(230, 230, 250, 0.15); border: 1px solid rgba(230, 230, 250, 0.3); color: var(--tertiary); }
+
+.btn-cta-v2 {
+  min-width: 300px;
+  height: 80px;
+  border-radius: 24px;
+  font-size: 1.5rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s;
+}
+
+.btn-primary-v2 {
+  background: var(--primary-container);
+  color: #fff;
+  box-shadow: 0 0 50px -5px rgba(77, 142, 255, 0.4);
+}
+
+.btn-secondary-v2 {
+  background: rgba(11, 19, 38, 0.4);
+  border: 1px solid rgba(221, 183, 255, 0.2);
+  color: #fff;
+}
+
+.main-footer {
+  width: 100%;
+  padding: 3rem 5%;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 5rem;
+  background: rgba(6, 14, 32, 0.8);
+  backdrop-filter: blur(16px);
+}
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+}
+
+.nav-link {
+  color: var(--on-surface-variant);
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.9rem;
+  transition: color 0.2s;
+}
+
+.nav-link:hover {
+  color: var(--primary);
+}
+
+/* Force Dim whole paragraph, Light only one word */
+.word-layer { opacity: 1 !important; pointer-events: auto !important; }
+.clickable-word { color: rgba(255, 255, 255, 0.15) !important; transition: all 0.2s ease-out !important; text-shadow: none !important; }
+.clickable-word:hover { color: #FFD700 !important; opacity: 1 !important; text-shadow: 0 0 15px #FFD700 !important; transform: scale(1.1); z-index: 10; }
