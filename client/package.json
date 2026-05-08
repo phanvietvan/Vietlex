@@ -7,13 +7,13 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview",
-    "postinstall": "npm rebuild lightningcss --update-binary"
+    "preview": "vite preview"
   },
   "dependencies": {
     "react": "^19.2.5",
     "react-dom": "^19.2.5",
-    "tesseract.js": "^7.0.0"
+    "tesseract.js": "^7.0.0",
+    "lightningcss": "^1.29.1"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
