@@ -1,0 +1,148 @@
+/* App specific styles if any (most are in index.css) */
+
+.features-hint {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 2rem;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+.learning-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.typing-area {
+    cursor: text;
+    transition: transform 0.2s ease;
+}
+
+.typing-area:active {
+    transform: scale(0.995);
+}
+
+/* Word Interaction */
+.word-wrapper {
+    cursor: help;
+    padding: 0 1px;
+    border-radius: 4px;
+    transition: background 0.2s ease;
+}
+
+.word-wrapper:hover {
+    background: rgba(56, 189, 248, 0.1);
+}
+
+/* Dictionary Popup */
+.dictionary-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    animation: fadeIn 0.2s ease;
+}
+
+.dictionary-card {
+    background: #1e293b;
+    width: 90%;
+    max-width: 450px;
+    padding: 2.5rem;
+    border-radius: 24px;
+    border: 1px solid var(--glass-border);
+    position: relative;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+    animation: scaleIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.close-popup {
+    position: absolute;
+    top: 1rem;
+    right: 1.5rem;
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+.dict-header h3 {
+    font-size: 2rem;
+    margin-bottom: 0.25rem;
+    color: var(--primary);
+    text-transform: capitalize;
+}
+
+.phonetic {
+    color: var(--secondary);
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    display: block;
+    margin-bottom: 1.5rem;
+}
+
+.part-of-speech {
+    font-style: italic;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    text-transform: lowercase;
+}
+
+.meaning-item {
+    margin-bottom: 1.5rem;
+}
+
+.definition {
+    margin: 0.5rem 0;
+    font-size: 1rem;
+    line-height: 1.4;
+}
+
+.example {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    border-left: 2px solid var(--glass-border);
+    padding-left: 1rem;
+    font-style: italic;
+}
+
+.loader, .error-state {
+    text-align: center;
+    padding: 2rem 0;
+    color: var(--text-muted);
+}
+
+.dict-footer {
+    margin-top: 2rem;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    border-top: 1px solid var(--glass-border);
+    padding-top: 1rem;
+    text-align: right;
+}
+
+@keyframes scaleIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+.celebration-icon {
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
