@@ -79,10 +79,23 @@
 }
 
 .dict-header h3 {
-    font-size: 2rem;
+    font-size: 2.2rem;
     margin-bottom: 0.25rem;
     color: var(--primary);
     text-transform: capitalize;
+}
+
+.word-row {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.vi-translation {
+    font-size: 1.4rem;
+    color: var(--secondary);
+    font-weight: 600;
 }
 
 .phonetic {
